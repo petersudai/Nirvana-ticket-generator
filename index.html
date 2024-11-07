@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirvana Event Ticket Generator</title>
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #292925;
+      color: #FEFAF6;
+    }
+
+    /* Centered Card Styling */
+    .container {
+      background-color: #567e70; /* Deep color for the card background */
+      border-radius: 12px;
+      padding: 2em;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      color: #ffffff; /* Light color for text */
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 1em;
+      color: #2c2525; /* Accent color for the title */
+    }
+
+    /* Input and Button Styling */
+    input, button {
+      font-size: 1em;
+      padding: 0.8em;
+      margin-top: 0.5em;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+    }
+
+    input {
+      background-color: #433C3B;
+      color: #FEFAF6;
+      border: 1px solid #484843;
+    }
+
+    button {
+      background-color: #d47b22; /* Button color */
+      color: #FEFAF6;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e69647;
+      color: #4d4d4d;
+    }
+
+    /* Download Link Styling */
+    #downloadLink {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #FEFAF6;
+      text-decoration: underline;
+      cursor: pointer;
+      display: none;
+    }
+
+    #downloadLink:hover {
+      color: #b6b4b4;
+    }
+
+    /* Message Styling */
+    #message {
+      margin-top: 15px;
+      font-size: 1em;
+    }
+
+    /* Error Message */
+    .error {
+      color: #E57373; /* Red color for error messages */
+    }
+
+    /* Success Message */
+    .success {
+      color: #81C784; /* Green for success messages */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nirvana Event Ticket Generator</h1>
+    <form id="ticketForm">
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <button type="submit">Generate Ticket</button>
+    </form>
+    <a id="downloadLink" href="#" target="_blank">Download Your Ticket</a>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    document.getElementById('ticketForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const downloadLink = document.getElementById('downloadLink');
+      const message = document.getElementById('message');
+
+      // Clear previous messages
+      message.innerText = '';
+      message.className = '';
+      downloadLink.style.display = 'none';
+
+      try {
+        const response = await fetch('/generate-ticket', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          downloadLink.href = result.ticketPath;
+          downloadLink.style.display = 'block';
+          message.innerText = 'Ticket generated successfully!';
+          message.className = 'success';
+        } else {
+          message.innerText = result.message || 'Error generating ticket';
+          message.className = 'error';
+        }
+      } catch (error) {
+        message.innerText = 'An error occurred. Please try again.';
+        message.className = 'error';
+      }
+    };
+  </script>
+</body>
+</html>
