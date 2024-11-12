@@ -9,7 +9,7 @@
     "routes": [
       {
         "src": "/tickets/(.*)",
-        "dest": "/tickets/$1"
+        "dest": "/app.js"
       },
       {
         "src": "/(.*)",
