@@ -8,6 +8,10 @@
     ],
     "routes": [
       {
+        "src": "/tickets/(.*)",
+        "dest": "/tickets/$1"
+      },
+      {
         "src": "/(.*)",
         "dest": "/app.js"
       }
