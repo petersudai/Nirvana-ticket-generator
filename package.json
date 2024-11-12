@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "pdfkit": "^0.15.1",
     "puppeteer": "^23.7.0",
     "qrcode": "^1.5.4",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "xlsx": "^0.18.5"
   }
 }

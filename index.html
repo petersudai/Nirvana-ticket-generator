@@ -15,24 +15,26 @@
       margin: 0;
       background-color: #292925;
       color: #FEFAF6;
+      padding: 20px; /* Added padding for small screens */
+      box-sizing: border-box;
     }
 
     /* Centered Card Styling */
     .container {
-      background-color: #567e70; /* Deep color for the card background */
+      background-color: #567e70;
       border-radius: 12px;
       padding: 2em;
       width: 100%;
       max-width: 400px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       text-align: center;
-      color: #ffffff; /* Light color for text */
+      color: #ffffff;
     }
 
     h1 {
       font-size: 1.8em;
       margin-bottom: 1em;
-      color: #2c2525; /* Accent color for the title */
+      color: #2c2525;
     }
 
     /* Input and Button Styling */
@@ -54,7 +56,7 @@
     }
 
     button {
-      background-color: #d47b22; /* Button color */
+      background-color: #d47b22;
       color: #FEFAF6;
       font-weight: bold;
       cursor: pointer;
@@ -86,14 +88,38 @@
       font-size: 1em;
     }
 
-    /* Error Message */
     .error {
-      color: #E57373; /* Red color for error messages */
+      color: #E57373;
     }
 
-    /* Success Message */
     .success {
-      color: #81C784; /* Green for success messages */
+      color: #81C784;
+    }
+
+    /* Media Query for Mobile Devices */
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5em;
+        max-width: 90%;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      input, button {
+        font-size: 0.9em;
+        padding: 0.6em;
+        max-width: 100%;
+      }
+
+      #downloadLink {
+        font-size: 1em;
+      }
+
+      #message {
+        font-size: 0.9em;
+      }
     }
   </style>
 </head>
@@ -115,7 +141,6 @@
       const downloadLink = document.getElementById('downloadLink');
       const message = document.getElementById('message');
 
-      // Clear previous messages
       message.innerText = '';
       message.className = '';
       downloadLink.style.display = 'none';
