@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirvana Event Ticket Generator</title>
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #000000;
+      color:rgb(201, 201, 201);
+      padding: 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* Centered Card Styling */
+    .container {
+      background-color: #5e4343;
+      border-radius: 12px;
+      padding: 2em;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      color: #b8b8b8;
+      transform: translateY(100vh);
+      animation: slideIn 1.2s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 1em;
+      color: #000000;
+    }
+
+    /* Input and Button Styling */
+    input, button {
+      font-size: 1em;
+      padding: 0.8em;
+      margin-top: 0.5em;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input {
+      background-color: #433C3B;
+      color: #bebebd;
+      border: 1px solid #484843;
+    }
+
+    input:focus {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+    }
+
+    button {
+      background-color: #b97836;
+      color: #FEFAF6;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.1s ease;
+    }
+
+    button:hover {
+      background-color: #e69647;
+      color: #4d4d4d;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    /* Download Link Styling */
+    #downloadLink {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #FEFAF6;
+      text-decoration: underline;
+      cursor: pointer;
+      display: none;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    #downloadLink:hover {
+      color: #b6b4b4;
+    }
+
+    /* Message Styling */
+    #message {
+      margin-top: 15px;
+      font-size: 1em;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .error {
+      color: #E57373;
+    }
+
+    .success {
+      color: #81C784;
+    }
+
+    /* Media Query for Mobile Devices */
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5em;
+        max-width: 90%;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      input, button {
+        font-size: 0.9em;
+        padding: 0.6em;
+        max-width: 100%;
+      }
+
+      #downloadLink {
+        font-size: 1em;
+      }
+
+      #message {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nirvana Event Ticket Generator</h1>
+    <form id="ticketForm">
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <button type="submit">Generate Ticket</button>
+    </form>
+    <a id="downloadLink" href="#" target="_blank">Download Your Ticket</a>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    document.getElementById('ticketForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const downloadLink = document.getElementById('downloadLink');
+      const message = document.getElementById('message');
+
+      // Clear previous messages
+      message.innerText = '';
+      message.className = '';
+      downloadLink.style.display = 'none';
+      downloadLink.style.opacity = '0'; // Hide before new animation
+
+      try {
+        const response = await fetch('/generate-ticket', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          downloadLink.href = result.ticketPath;
+          downloadLink.style.display = 'block';
+          downloadLink.style.animation = 'fadeIn 1s ease forwards';
+          message.innerText = 'Ticket generated successfully!';
+          message.className = 'success';
+        } else {
+          message.innerText = result.message || 'Error generating ticket';
+          message.className = 'error';
+        }
+      } catch (error) {
+        message.innerText = 'An error occurred. Please try again.';
+        message.className = 'error';
+      }
+    };
+  </script>
+</body>
+</html>
