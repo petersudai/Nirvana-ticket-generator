@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('tickets'));
 
-const backgroundPath = path.join(__dirname, 'ticket-blurry-background.png');
+const backgroundPath = path.join(__dirname, 'Nirvanalogobackground.png');
 const ticketsDir = path.join(__dirname, 'tickets');
 if (!fs.existsSync(ticketsDir)) {
   fs.mkdirSync(ticketsDir);
@@ -99,9 +99,9 @@ app.post('/generate-ticket', async (req, res) => {
   <line x1="40" y1="540" x2="510" y2="540" class="line"/>
   <!-- Event title and details -->
   <text x="50%" y="580" class="title">Event: NIRVANA</text>
-  <text x="50%" y="620" class="details">Venue: Syokimau Country Club</text>
-  <text x="50%" y="660" class="details" fill="#FEFAF6">Sat 30th November</text>
-  <text x="50%" y="700" class="details" fill="#FEFAF6">2000hrs</text>
+  <text x="50%" y="620" class="details">Venue: The Concord Hotel</text>
+  <text x="50%" y="660" class="details" fill="#FEFAF6">Sat 29th March</text>
+  <text x="50%" y="700" class="details" fill="#FEFAF6">1500hrs</text>
   <!-- Separator above More Info Section -->
   <line x1="40" y1="740" x2="510" y2="740" class="line"/>
   <!-- More-info Section Centered -->
