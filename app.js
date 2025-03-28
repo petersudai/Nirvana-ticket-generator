@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('tickets'));
 
-const backgroundPath = path.join(__dirname, 'Nirvanalogobackground.png');
+const backgroundPath = path.join(__dirname, 'backgroundimageconcordnirvanablurry.png');
 const ticketsDir = path.join(__dirname, 'tickets');
 if (!fs.existsSync(ticketsDir)) {
   fs.mkdirSync(ticketsDir);
@@ -51,7 +51,7 @@ app.post('/generate-ticket', async (req, res) => {
       font-family: Candara, Arial, sans-serif;
       font-size: 36px;
       font-weight: 600;
-      fill: #FEFAF6; /* Updated ticket number color */
+      fill:rgb(0, 0, 0); /* Updated ticket number color */
       text-anchor: middle;
     }
     .info {
@@ -65,17 +65,17 @@ app.post('/generate-ticket', async (req, res) => {
       font-family: Candara, Arial, sans-serif;
       font-size: 22px;
       font-weight: 600;
-      fill: #FEFAF6;
+      fill:rgb(0, 0, 0);
       text-anchor: middle;
     }
     .more-info {
       font-family: Candara, Arial, sans-serif;
       font-size: 20px;
-      fill: #FFFFFF;
+      fill:rgb(53, 53, 53);
       text-anchor: middle;
     }
     .line {
-      stroke: #CCCCCC;
+      stroke:rgb(53, 53, 53);
       stroke-width: 0.5;
     }
   </style>
